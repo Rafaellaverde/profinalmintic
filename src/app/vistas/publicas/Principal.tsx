@@ -21,7 +21,7 @@ export const Principal = () => {
         <nav className="navbar navbar-expand-md fixed-top bg-light">
           <div className="container-fluid">
           <Link to="/" className="navbar-brand" >
-          <img src={logoReact} alt="" /> Mintic 2022
+          <img src={logoReact} alt="" /> Tu Doctor Online 2022
           </Link>
             <button
               className="navbar-toggler"

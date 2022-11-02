@@ -1,9 +1,101 @@
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ServicioPublico from "../../servicios/ServicioPublico";
+
 import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+
+import CrearUsuario from "../../modelos/CrearUsuario";
 import logoReact from "../../../assets/image/logoReact.png";
+import { ContextoUsuario } from "../../Seguridad/ContextoUsuario";
+import { useFormulario } from "../../utilidades/misHooks/useFormulario";
+
+import jwtDecode from "jwt-decode";
+import * as cifrado from "js-sha512";
+import MiSesion from "../../modelos/MiSesion";
+import { propUsuario } from "../../modelos/MisInterfaces";
 
 export const RegistroSesion = () => {
+
+  type formitaHtml = React.FormEvent<HTMLFormElement>;
+  const [enProceso, setEnProceso] = useState<boolean>(false);
+  const navigate = useNavigate(); // permite redirigir al usuario
+  const { actualizar } = useContext(ContextoUsuario) as propUsuario;
+
+  // Manejo de formulario con Hook personalizado (sin librerias externas)
+  // *******************************************************************
+  // variable puede cambiar en le tiempo let
+  let { nombreUsuario, correoUsuario, claveUsuario, dobleEnlace, objeto } = useFormulario<CrearUsuario>(new CrearUsuario("", "", ""))
+
+
+  // ************************************************************************************
+
+  // Función flecha para resetear variables y limpiar cajas del formulario
+  // *******************************************************************
+  const limpiarCajas = (formulario: HTMLFormElement) => {
+    formulario.reset();
+
+    objeto.nombreUsuario = "";
+    objeto.correoUsuario = "";
+    objeto.claveUsuario = "";
+
+    formulario.nombreUsuario.value = "";
+    formulario.correoUsuario.value = "";
+    formulario.claveUsuario.value = "";
+
+    formulario.classList.remove("was-validated");
+  };
+
+
+  // Función flecha para presentar mensaje de error estilo toastify
+  // *******************************************************************
+  const mensajeError = () => {
+    toast.error("No se puede crear el usuario. Correo o perfil incorrectos", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
+
+
+  const enviarFormulario = async (fh: formitaHtml) => {
+    fh.preventDefault();
+    setEnProceso(true);
+    const formulario = fh.currentTarget;
+    formulario.classList.add("was-validated");
+
+    if (formulario.checkValidity() === false) {
+      fh.preventDefault();
+      fh.stopPropagation();
+    } else {
+      // bloque para consumir el backend
+      const claveCifrada = cifrado.sha512(objeto.claveUsuario);
+      objeto.claveUsuario = claveCifrada;
+      const resultado = await ServicioPublico.crearUsuario(objeto);
+      if (resultado.tokenMintic) {
+        const objJWTRecibido: any = jwtDecode(resultado.tokenMintic);
+        const usuarioCargado = new MiSesion(
+          objJWTRecibido.codUsuario,
+          objJWTRecibido.correo,
+          objJWTRecibido.perfil
+        );
+        actualizar(usuarioCargado);
+        localStorage.setItem("tokenMintic", resultado.tokenMintic);
+        navigate("/dashboard");
+        setEnProceso(false);
+      } else {
+        limpiarCajas(formulario);
+        mensajeError();
+      }
+    }
+  };
 
   return (
     <div>
@@ -16,10 +108,10 @@ export const RegistroSesion = () => {
                   <div className="d-flex justify-content-center py-4">
                     <Link
                       to="/"
-                      className="logo d-flex align-items-center w-auto"
+                      className="dd d-flex align-items-center w-auto"
                     >
                       <img src={logoReact} alt="" />
-                      <span className="d-none d-lg-block">Mintic 2022</span>
+                      <span className="d-none d-lg-block">Tu Doctor Online 2022</span>
                     </Link>
                   </div>
 
@@ -37,6 +129,8 @@ export const RegistroSesion = () => {
                       <Form
                         noValidate
                         className="row g-3"
+                        validated={enProceso}
+                        onSubmit={enviarFormulario}
                       >
                         <div className="col-12">
                           <Form.Group controlId="nombreUsuario">
@@ -46,6 +140,8 @@ export const RegistroSesion = () => {
                               type="text"
                               name="nombreUsuario"
                               className="form-control"
+                              value={nombreUsuario}
+                              onChange={dobleEnlace}
                             />
                             <Form.Control.Feedback type="invalid">
                               Nombre es obligatorio
@@ -63,6 +159,8 @@ export const RegistroSesion = () => {
                                 type="email"
                                 name="correoUsuario"
                                 className="form-control"
+                                value={correoUsuario}
+                                onChange={dobleEnlace}
                               />
                               <Form.Control.Feedback type="invalid">
                                 correo electrónico es obligatorio
@@ -80,6 +178,8 @@ export const RegistroSesion = () => {
                               name="claveUsuario"
                               className="form-control"
                               minLength={4}
+                              value={claveUsuario}
+                              onChange={dobleEnlace}
                             />
                             <Form.Control.Feedback type="invalid">
                               Mínimo 4 caracteres
@@ -95,6 +195,7 @@ export const RegistroSesion = () => {
                               type="password"
                               name="reClaveUsuario"
                               className="form-control"
+                              pattern={claveUsuario}
                             />
                             <Form.Control.Feedback type="invalid">
                               Contraseñas no coindicen
@@ -124,7 +225,7 @@ export const RegistroSesion = () => {
             </div>
           </section>
         </div>
-      </main>
+      </main>  <ToastContainer />
 
     </div>
   );
