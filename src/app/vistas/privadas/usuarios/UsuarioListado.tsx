@@ -51,16 +51,16 @@ export const PerfilListado = () => {
                             </thead>
                             <tbody>
                                 {
-                                    arregloPerfiles.map((miperfilito, indice) => (
+                                    arregloPerfiles.map((miperfil, indice) => (
                                         <tr key={indice}>
                                             <td>
                                                 {indice + 1}
                                             </td>
                                             <td>
-                                                {miperfilito.nombrePerfil}
+                                                {miperfil.nombrePerfil}
                                             </td>
                                             <td>
-                                                {miperfilito.estadoPerfil === 1 ? "Activo" : "Inactivo"}
+                                                {miperfil.estadoPerfil === 1 ? "Activo" : "Inactivo"}
                                             </td>
                                         </tr>
 

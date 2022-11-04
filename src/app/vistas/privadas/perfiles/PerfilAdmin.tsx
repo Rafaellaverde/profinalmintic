@@ -75,29 +75,29 @@ export const PerfilAdmin = () => {
                             </thead>
                             <tbody>
                                 {
-                                    arregloPerfiles.map((miperfilito, indice) => (
+                                    arregloPerfiles.map((miperfil, indice) => (
                                         <tr key={indice}>
                                             <td>
                                                 {indice + 1}
                                             </td>
                                             <td>
-                                                {miperfilito.nombrePerfil}
+                                                {miperfil.nombrePerfil}
                                             </td>
                                             <td>
-                                                {miperfilito.estadoPerfil === 1 ? "Activo" : "Inactivo"}
+                                                {miperfil.estadoPerfil === 1 ? "Activo" : "Inactivo"}
                                             </td>
                                             <td>
                                                 <a href="/#"
                                                     onClick={(e) => {
                                                         e.preventDefault();
                                                         setShow(true);
-                                                        setObjPer(miperfilito);
+                                                        setObjPer(miperfil);
                                                     }
                                                     }>
                                                     <i className="fa-solid fa-trash-can" style={{ color: "purple" }}></i>
                                                 </a>
                                                 {"  "}
-                                                <Link to={"/dashboard/updateprofile/"+miperfilito._id}>
+                                                <Link to={"/dashboard/updateprofile/"+miperfil._id}>
 
                                                     <i className="fa-solid fa-pencil" style={{ color: "green" }}></i>
                                                 </Link>
