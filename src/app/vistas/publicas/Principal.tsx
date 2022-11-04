@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./../../../assets/css/portada.css";
 import "./../../../assets/css/carousel.css";
 
-import logoReact from "./../../../assets/image/logoReact.png";
+import logoDr from "./../../../assets/image/logoDr.png";
 import quienesSomos from "./../../../assets/image/quienesSomos.png";
 import patrocinio from "./../../../assets/image/patrocinio.png";
 import tecnologias from "./../../../assets/image/tecnologias.png";
@@ -21,7 +21,7 @@ export const Principal = () => {
         <nav className="navbar navbar-expand-md fixed-top bg-light">
           <div className="container-fluid">
           <Link to="/" className="navbar-brand" >
-          <img src={logoReact} alt="" /> Tu Doctor Online 2022
+          <img src={logoDr} alt="" /> Tu Doctor Online 2022
           </Link>
             <button
               className="navbar-toggler"

@@ -13,7 +13,16 @@ const opcionesAdmin = [
             { nombre: "Nuevo", icono: "bi bi-circle", ruta: "/dashboard/admuser" },
             { nombre: "Administración", icono: "bi bi-circle", ruta: "/dashboard/admuser", },
         ]
+    },
+    {
+        nombre: "Citas Medicas", icono: "bi bi-person-lines-fill", ruta: "", hijos: [
+            { nombre: "Agendar Citas", icono: "bi bi-circle", ruta: "/dashboard/admuser", },
+            { nombre: "Listar Agendas", icono: "bi bi-circle", ruta: "/dashboard/admuser" },
+            { nombre: "Cancelar Agenda", icono: "bi bi-circle", ruta: "/dashboard/admuser", },
+        ]
     }
+    
+
 ];
 
 // *********************************************************************************
@@ -21,12 +30,12 @@ const opcionesAdmin = [
 
 const opcionesInvitado = [
     { nombre: "Acerca de", icono: "bi bi-grid", ruta: "/dashboard/about", hijos: [], },
-    { nombre: "Hoal Soy Rafael", icono: "bi bi-grid", ruta: "/dashboard/rafa", hijos: [], },    
+    { nombre: "Hola Soy TuDoctor", icono: "bi bi-grid", ruta: "/dashboard/TuDoctor", hijos: [], },    
     {
-        nombre: "Compras", icono: "bi bi-clipboard-data", ruta: "", hijos: [
-            { nombre: "Pendientes", icono: "bi bi-circle", ruta: "/dashboard/admuser", },
-            { nombre: "Productos", icono: "bi bi-circle", ruta: "/dashboard/admuser" },
-            { nombre: "Antiguas", icono: "bi bi-circle", ruta: "/dashboard/admuser", }
+        nombre: "Citas Médicas", icono: "bi bi-clipboard-data", ruta: "", hijos: [
+            { nombre: "Agendar Citas", icono: "bi bi-circle", ruta: "/dashboard/admuser", },
+            { nombre: "Citas Agendadas", icono: "bi bi-circle", ruta: "/dashboard/admuser" },
+            { nombre: "Cancelar Citas", icono: "bi bi-circle", ruta: "/dashboard/admuser", }
         ]
     }
 ];

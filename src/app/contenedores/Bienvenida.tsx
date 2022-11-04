@@ -11,7 +11,7 @@ export const Bienvenida = () => {
                 </header>
 
                 <main>
-                    <h1>Plantilla para desarrollo Fullstack</h1>
+                    <h1>Consulta Principal de Tu Doctor Online</h1>
                     <p className="fs-5">
                         Esta plantilla está basada en NiceAdmin, utiliza Bootstrap 5.2.2 lo
                         cual la convierte en una plantilla actual para realizar desarrollos
@@ -38,7 +38,7 @@ export const Bienvenida = () => {
 
                     <div className="row g-5">
                         <div className="col-md-6">
-                            <h2>Frontend</h2>
+                            <h2>Perfiles</h2>
                             <p>
                                 El frontend es la parte del desarrollo Web que se presenta al
                                 usuario final, es el diseño que se visualiza en un navegador o
@@ -51,7 +51,7 @@ export const Bienvenida = () => {
                         </div>
 
                         <div className="col-md-6">
-                            <h2>Backend</h2>
+                            <h2>Usuarios</h2>
                             <p>
                                 Es la capa de acceso a los datos. En desarrollo software existe
                                 el concepto de componente agnóstico, esto quiere decir que un

@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
 import CrearUsuario from "../../modelos/CrearUsuario";
-import logoReact from "../../../assets/image/logoReact.png";
+import logoDr from "../../../assets/image/logoDr.png";
 import { ContextoUsuario } from "../../Seguridad/ContextoUsuario";
 import { useFormulario } from "../../utilidades/misHooks/useFormulario";
 
@@ -110,7 +110,7 @@ export const RegistroSesion = () => {
                       to="/"
                       className="dd d-flex align-items-center w-auto"
                     >
-                      <img src={logoReact} alt="" />
+                      <img src={logoDr} alt="" />
                       <span className="d-none d-lg-block">Tu Doctor Online 2022</span>
                     </Link>
                   </div>

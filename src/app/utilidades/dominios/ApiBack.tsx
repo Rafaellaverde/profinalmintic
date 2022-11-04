@@ -4,10 +4,11 @@ const ApiBack = {
   CREAR_USUARIO: "/api/usuarios/nuevo",
   INICIAR_SESION: "/api/usuarios/iniciar",
 
-  PERILES_OBTENER: "/api/perfiles/todos",
-  PERILES_CREAR: "/api/perfiles/crear",
-  PERILES_ELIMINAR: "/api/perfiles/eliminar",
-  PERILES_OBTENER_UNO: "/api/perfiles/uno",
+  PERFILES_OBTENER: "/api/perfiles/todos",
+  PERFILES_CREAR: "/api/perfiles/nuevo",
+  PERFILES_ELIMINAR: "/api/perfiles/eliminar",
+  PERFILES_OBTENER_UNO: "/api/perfiles/uno",
+  PERFILES_ACTUALIZAR: "/api/perfiles/actualizar"
 };
 
 export default ApiBack;
