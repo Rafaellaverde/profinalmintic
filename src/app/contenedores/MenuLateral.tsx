@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import logoReact from "../../assets/image/logoReact.png";
+import logoDr from "../../assets/image/logoDr.png";
 import { ContextoUsuario } from "../Seguridad/ContextoUsuario";
 
 import { opcionesAdmin, opcionesInvitado, } from "../utilidades/dominios/OpcionesSistema";
@@ -27,7 +27,7 @@ export const MenuLateral = () => {
         to="/dashboard"
         className="d-flex align-items-center pb-3 mb-3 link-dark border-bottom"
       >
-        <img src={logoReact} alt="noLogo" className="bi pe-none me-2" />
+        <img src={logoDr} alt="noLogo" className="bi pe-none me-2" />
         <div>
           <span className="fs-5 fw-semibold">{nombrePerfil}</span>
         </div>

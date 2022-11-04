@@ -8,13 +8,13 @@ import * as cifrado from "js-sha512";
 import MiSesion from "../../modelos/MiSesion";
 import CrearUsuario from "../../modelos/CrearUsuario";
 import { propUsuario } from "../../modelos/MisInterfaces";
-import logoReact from "../../../assets/image/logoReact.png";
+import logoDr from "../../../assets/image/logoDr.png";
 import ServicioPublico from "../../servicios/ServicioPublico";
 import { ContextoUsuario } from "../../Seguridad/ContextoUsuario";
 import { useFormulario } from "../../utilidades/misHooks/useFormulario";
 
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import { MensajeToastify } from "../../utilidades/funciones/MensajeToastify";
 
 export const InicioSesion = () => {
   // Definición de variables
@@ -41,20 +41,7 @@ export const InicioSesion = () => {
     formulario.classList.remove("was-validated");
   };
 
-  // Función flecha para presentar mensaje de error estilo toastify
-  // *******************************************************************
-  const mensajeError = () => {
-    toast.error("No se puede iniciar sesión. Credenciales incorrectas", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-  };
+
 
   // Iniciar sesión
   // *******************************************************************
@@ -85,7 +72,7 @@ export const InicioSesion = () => {
         setEnProceso(false);
       } else {
         limpiarCajas(formulario);
-        mensajeError();
+        MensajeToastify("Error","Error! Credenciales Incorrectas",8000);
       }
     }
   };
@@ -103,7 +90,7 @@ export const InicioSesion = () => {
                       to="/"
                       className="logo d-flex align-items-center w-auto"
                     >
-                      <img src={logoReact} alt="" />
+                      <img src={logoDr} alt="" />
                       <span className="d-none d-lg-block">Tu Doctor Online 2022</span>
                     </Link>
                   </div>
