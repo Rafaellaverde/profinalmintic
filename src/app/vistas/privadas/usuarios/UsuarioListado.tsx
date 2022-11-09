@@ -4,9 +4,6 @@ import Perfil from "../../../modelos/Perfil";
 import ApiBack from "../../../utilidades/dominios/ApiBack";
 import ServicioPrivado from "../../../servicios/ServicioPrivado";
 
-
-
-
 export const PerfilListado = () => {
     // Variables
     const [arregloPerfiles, setArregloPerfiles] = useState<Perfil[]>([]);

@@ -8,13 +8,14 @@ import * as cifrado from "js-sha512";
 import MiSesion from "../../modelos/MiSesion";
 import CrearUsuario from "../../modelos/CrearUsuario";
 import { propUsuario } from "../../modelos/MisInterfaces";
-import logoDr from "../../../assets/image/logoDr.png";
+import logoReact from "../../../assets/image/logoReact.png";
 import ServicioPublico from "../../servicios/ServicioPublico";
-import { ContextoUsuario } from "../../Seguridad/ContextoUsuario";
 import { useFormulario } from "../../utilidades/misHooks/useFormulario";
+import { ContextoUsuario } from "../../seguridad/ContextoUsuario";
 
 import { ToastContainer } from "react-toastify";
 import { MensajeToastify } from "../../utilidades/funciones/MensajeToastify";
+
 
 export const InicioSesion = () => {
   // Definición de variables
@@ -24,9 +25,11 @@ export const InicioSesion = () => {
   const [enProceso, setEnProceso] = useState<boolean>(false);
   const { actualizar } = useContext(ContextoUsuario) as propUsuario;
 
+
   // Formulario con hooks
   // *******************************************************************
   let { correoUsuario, claveUsuario, dobleEnlace, objeto } = useFormulario<CrearUsuario>(new CrearUsuario("", "", ""));
+
 
   // Función flecha para limpiar cajas
   const limpiarCajas = (formulario: HTMLFormElement) => {
@@ -40,7 +43,6 @@ export const InicioSesion = () => {
 
     formulario.classList.remove("was-validated");
   };
-
 
 
   // Iniciar sesión
@@ -60,23 +62,21 @@ export const InicioSesion = () => {
 
       if (resultado.tokenMintic) {
         const objJWTRecibido: any = jwtDecode(resultado.tokenMintic);
-        const usuarioCargado = new MiSesion(
-          objJWTRecibido.codUsuario,
-          objJWTRecibido.correo,
-          objJWTRecibido.perfil
-        );
+        const usuarioCargado = new MiSesion( objJWTRecibido.codUsuario, objJWTRecibido.correo, objJWTRecibido.perfil );
         actualizar(usuarioCargado);
 
         localStorage.setItem("tokenMintic", resultado.tokenMintic);
+        localStorage.setItem("avatarMintic", resultado.avatarMintic);
         navigate("/dashboard");
         setEnProceso(false);
       } else {
         limpiarCajas(formulario);
-        MensajeToastify("Error","Error! Credenciales Incorrectas",8000);
+        MensajeToastify("Error", "Credenciales incorrectas", 7000);
       }
     }
   };
 
+  
   return (
     <div>
       <main>
@@ -90,8 +90,8 @@ export const InicioSesion = () => {
                       to="/"
                       className="logo d-flex align-items-center w-auto"
                     >
-                      <img src={logoDr} alt="" />
-                      <span className="d-none d-lg-block">Tu Doctor Online 2022</span>
+                      <img src={logoReact} alt="" />
+                      <span className="d-none d-lg-block">Mintic 2022</span>
                     </Link>
                   </div>
 

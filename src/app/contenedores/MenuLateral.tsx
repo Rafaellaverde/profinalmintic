@@ -1,25 +1,32 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import logoDr from "../../assets/image/logoDr.png";
-import { ContextoUsuario } from "../Seguridad/ContextoUsuario";
+import logoReact from "../../assets/image/logoReact.png";
+import { ContextoUsuario } from "../seguridad/ContextoUsuario";
 
 import { opcionesAdmin, opcionesInvitado, } from "../utilidades/dominios/OpcionesSistema";
 
 export const MenuLateral = () => {
-  let opciones = [];
+  let opciones: any[] = [];
   const miUsuario = useContext(ContextoUsuario);
   const nombrePerfil = miUsuario?.autenticado.perfil;
 
   switch (nombrePerfil) {
+    case "Administrador":
+      opciones = opcionesAdmin;
+      break;
     case "Invitado":
       opciones = opcionesInvitado;
       break;
-
     default:
-      opciones = opcionesAdmin;
+      console.log("No hay menú...");
       break;
   }
+
+
+// Habilitar por defecto al usuario administrador
+opciones = opcionesAdmin;
+
 
   return (
     <aside id="sidebar" className="sidebar">
@@ -27,7 +34,7 @@ export const MenuLateral = () => {
         to="/dashboard"
         className="d-flex align-items-center pb-3 mb-3 link-dark border-bottom"
       >
-        <img src={logoDr} alt="noLogo" className="bi pe-none me-2" />
+        <img src={logoReact} alt="noLogo" className="bi pe-none me-2" />
         <div>
           <span className="fs-5 fw-semibold">{nombrePerfil}</span>
         </div>
@@ -52,7 +59,7 @@ export const MenuLateral = () => {
                 className="nav-content collapse "
                 data-bs-parent="#sidebar-nav"
               >
-                {opcion.hijos.map((subMenu, otroIndice) => (
+                {opcion.hijos.map((subMenu: any, otroIndice: number) => (
                   <li key={"sub" + otroIndice}>
                     <Link to={subMenu.ruta}>
                       <i className={subMenu.icono}></i>

@@ -8,8 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
 import CrearUsuario from "../../modelos/CrearUsuario";
-import logoDr from "../../../assets/image/logoDr.png";
-import { ContextoUsuario } from "../../Seguridad/ContextoUsuario";
+import logoReact from "../../../assets/image/logoReact.png";
+import { ContextoUsuario } from "../../seguridad/ContextoUsuario";
 import { useFormulario } from "../../utilidades/misHooks/useFormulario";
 
 import jwtDecode from "jwt-decode";
@@ -18,22 +18,18 @@ import MiSesion from "../../modelos/MiSesion";
 import { propUsuario } from "../../modelos/MisInterfaces";
 
 export const RegistroSesion = () => {
-
-  type formitaHtml = React.FormEvent<HTMLFormElement>;
-  const [enProceso, setEnProceso] = useState<boolean>(false);
-  const navigate = useNavigate(); // permite redirigir al usuario
   const { actualizar } = useContext(ContextoUsuario) as propUsuario;
 
-  // Manejo de formulario con Hook personalizado (sin librerias externas)
+  const navigate = useNavigate();
+  type formaHtml = React.FormEvent<HTMLFormElement>;
+  const [enProceso, setEnProceso] = useState<boolean>(false);
+
+  // Formulario con hooks
   // *******************************************************************
-  // variable puede cambiar en le tiempo let
-  let { nombreUsuario, correoUsuario, claveUsuario, dobleEnlace, objeto } = useFormulario<CrearUsuario>(new CrearUsuario("", "", ""))
+  let { nombreUsuario, correoUsuario, claveUsuario, dobleEnlace, objeto } =
+    useFormulario<CrearUsuario>(new CrearUsuario("", "", ""));
 
-
-  // ************************************************************************************
-
-  // Función flecha para resetear variables y limpiar cajas del formulario
-  // *******************************************************************
+  // Función flecha para limpiar cajas
   const limpiarCajas = (formulario: HTMLFormElement) => {
     formulario.reset();
 
@@ -47,7 +43,6 @@ export const RegistroSesion = () => {
 
     formulario.classList.remove("was-validated");
   };
-
 
   // Función flecha para presentar mensaje de error estilo toastify
   // *******************************************************************
@@ -64,30 +59,27 @@ export const RegistroSesion = () => {
     });
   };
 
-
-  const enviarFormulario = async (fh: formitaHtml) => {
+  // Crear el usuario
+  // *******************************************************************
+  const enviarFormulario = async (fh: formaHtml) => {
     fh.preventDefault();
     setEnProceso(true);
     const formulario = fh.currentTarget;
     formulario.classList.add("was-validated");
-
     if (formulario.checkValidity() === false) {
       fh.preventDefault();
       fh.stopPropagation();
     } else {
-      // bloque para consumir el backend
       const claveCifrada = cifrado.sha512(objeto.claveUsuario);
       objeto.claveUsuario = claveCifrada;
       const resultado = await ServicioPublico.crearUsuario(objeto);
       if (resultado.tokenMintic) {
         const objJWTRecibido: any = jwtDecode(resultado.tokenMintic);
-        const usuarioCargado = new MiSesion(
-          objJWTRecibido.codUsuario,
-          objJWTRecibido.correo,
-          objJWTRecibido.perfil
-        );
+        const usuarioCargado = new MiSesion( objJWTRecibido.codUsuario, objJWTRecibido.correo, objJWTRecibido.perfil );
         actualizar(usuarioCargado);
+
         localStorage.setItem("tokenMintic", resultado.tokenMintic);
+        localStorage.setItem("avatarMintic", resultado.avatarMintic);
         navigate("/dashboard");
         setEnProceso(false);
       } else {
@@ -108,10 +100,10 @@ export const RegistroSesion = () => {
                   <div className="d-flex justify-content-center py-4">
                     <Link
                       to="/"
-                      className="dd d-flex align-items-center w-auto"
+                      className="logo d-flex align-items-center w-auto"
                     >
-                      <img src={logoDr} alt="" />
-                      <span className="d-none d-lg-block">Tu Doctor Online 2022</span>
+                      <img src={logoReact} alt="" />
+                      <span className="d-none d-lg-block">Mintic 2022</span>
                     </Link>
                   </div>
 
@@ -128,9 +120,9 @@ export const RegistroSesion = () => {
 
                       <Form
                         noValidate
-                        className="row g-3"
                         validated={enProceso}
                         onSubmit={enviarFormulario}
+                        className="row g-3"
                       >
                         <div className="col-12">
                           <Form.Group controlId="nombreUsuario">
@@ -225,8 +217,9 @@ export const RegistroSesion = () => {
             </div>
           </section>
         </div>
-      </main>  <ToastContainer />
+      </main>
 
+      <ToastContainer />
     </div>
   );
 };

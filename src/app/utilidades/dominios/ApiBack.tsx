@@ -1,14 +1,22 @@
-
 const ApiBack = {
   URL: "http://localhost:3123",
-  CREAR_USUARIO: "/api/usuarios/nuevo",
-  INICIAR_SESION: "/api/usuarios/iniciar",
+  CREAR_USUARIO: "/api/publica/usuario/crear",
+  INICIAR_SESION: "/api/publica/usuario/iniciar",
 
-  PERFILES_OBTENER: "/api/perfiles/todos",
-  PERFILES_CREAR: "/api/perfiles/nuevo",
-  PERFILES_ELIMINAR: "/api/perfiles/eliminar",
-  PERFILES_OBTENER_UNO: "/api/perfiles/uno",
-  PERFILES_ACTUALIZAR: "/api/perfiles/actualizar"
+  PERFILES_CREAR: "/api/privada/perfil/crear",
+  PERFILES_OBTENER: "/api/privada/perfil/todos",
+  PERFILES_ELIMINAR: "/api/privada/perfil/eliminar",
+  PERFILES_OBTENER_UNO: "/api/privada/perfil/uno",
+  PERFILES_ACTUALIZAR: "/api/privada/perfil/actualizar",
+
+  USUARIOS_CREAR: "/api/privada/usuario/crear",
+  USUARIOS_OBTENER: "/api/privada/usuario/todos",
+  USUARIOS_OBTENER_UNO: "/api/privada/usuario/uno",
+  USUARIOS_ELIMINAR: "/api/privada/usuario/eliminar",
+  USUARIOS_ACTUALIZAR: "/api/privada/usuario/actualizar",
+
+  CITAS_CREAR: "/api/privada/cita/crear",
+  CITAS_OBTENER: "/api/privada/cita/todos",
 };
 
 export default ApiBack;

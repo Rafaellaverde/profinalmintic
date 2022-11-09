@@ -7,8 +7,8 @@ import { InicioSesion } from "../../vistas/publicas/InicioSesion";
 import { RegistroSesion } from "../../vistas/publicas/RegistroSesion";
 import { NoEncontrado } from "../../vistas//compartidas/NoEncontrado";
 
-import { Vigilante } from "../../Seguridad/Vigilante";
-import UsuarioSesion from "../../Seguridad/UsuarioSesion";
+import { Vigilante } from "../../seguridad/Vigilante";
+import UsuarioSesion from "../../seguridad/UsuarioSesion";
 import { TableroPrincipal } from "../../contenedores/TableroPrincipal";
 
 const LazyPrincipal = lazy(() => import("../../vistas/publicas/Principal").then(() => ({ default: Principal })));
